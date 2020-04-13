@@ -1,9 +1,8 @@
 
 var express = require('express');
 var app = express();
-var fs = require('fs');
-var config = require('./config');
 
+var config = require('./config.js');
 
 var server = require(config.http_type).createServer(config.server_options,app);
 

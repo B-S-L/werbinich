@@ -1,6 +1,6 @@
 
-var config;
-
+var config = {}
+//var fs = require('fs');
 config.session_options = {
     secret: "some secret",
     resave: true,
@@ -16,3 +16,4 @@ config.server_options = {
 
 config.http_type = "http"
 
+module.exports = config;
