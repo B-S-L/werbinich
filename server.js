@@ -47,17 +47,14 @@ class User {
 
 
 class WerBinIch {
-
-
-
     constructor() {
         this.users =  {}
         this.user_sockets = {}
         this.stage = WerBinIch.STAGES.INIT;
       }
+    
 
-
-    all_roles_assigned = function() {
+    all_roles_assigned() {
 
         for (u in game.users){
             if (!game.users[u].role) {
@@ -66,8 +63,9 @@ class WerBinIch {
         }
         return true;
     }
+     
 
-    get_roles = function(user) {
+     get_roles = function(user) {
 
         var filtered = Object.fromEntries(Object.entries(this.users).filter(([k,v]) => user.name !== v.name));
     
@@ -82,7 +80,7 @@ class WerBinIch {
     }
 
 
-    set_targets = function() {
+    set_targets() {
 
 
         function random_permuatation_no_loops(k) {
@@ -137,7 +135,7 @@ class WerBinIch {
     
     }
     
-    has_user = function(username) {
+    has_user(username) {
         if (username && this.users[username]) { return true };
         return false;
     }
@@ -155,7 +153,7 @@ class WerBinIch {
         return this.user_sockets[user.name];
     }
 
-    set_stage = function(new_stage){
+    set_stage(new_stage){
 
         if (this.stage === WerBinIch.STAGES.INIT && new_stage === WerBinIch.STAGES.WAITING) {
             this.stage  = WerBinIch.STAGES.WAITING;
