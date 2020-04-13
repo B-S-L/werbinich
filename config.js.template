@@ -1,0 +1,18 @@
+
+var config;
+
+config.session_options = {
+    secret: "some secret",
+    resave: true,
+    saveUninitialized: true
+}
+
+config.server_options = {
+	//key: fs.readFileSync('<keypath>.key'),
+	//cert: fs.readFileSync('<certpath>.crt')
+}
+
+
+
+config.http_type = "http"
+

@@ -1,13 +1,17 @@
 
 var express = require('express');
 var app = express();
-var server = require('http').createServer(app);
+var fs = require('fs');
+var config = require('./config');
+
+
+var server = require(config.http_type).createServer(config.server_options,app);
+
+
+
+
 var io = require('socket.io')(server);
-var session = require("express-session")({
-    secret: "aAF324u(S/)(§",
-    resave: true,
-    saveUninitialized: true
-});
+var session = require("express-session")(config.session_options);
 
 var sharedsession = require("express-socket.io-session");
  
