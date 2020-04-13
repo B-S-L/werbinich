@@ -48,16 +48,12 @@ class User {
 
 class WerBinIch {
 
-    STAGES = {
-        INIT: 1,
-        WAITING: 2,
-        GAME: 3,
-      };
+
 
     constructor() {
         this.users =  {}
         this.user_sockets = {}
-        this.stage = this.STAGES.INIT;
+        this.stage = WerBinIch.STAGES.INIT;
       }
 
 
@@ -161,16 +157,16 @@ class WerBinIch {
 
     set_stage = function(new_stage){
 
-        if (this.stage === this.STAGES.INIT && new_stage === this.STAGES.WAITING) {
-            this.stage  = this.STAGES.WAITING;
+        if (this.stage === WerBinIch.STAGES.INIT && new_stage === WerBinIch.STAGES.WAITING) {
+            this.stage  = WerBinIch.STAGES.WAITING;
             this.set_targets();
             return true;
 
         }
 
-        if (this.stage === this.STAGES.WAITING && new_stage === this.STAGES.GAME) {
+        if (this.stage === WerBinIch.STAGES.WAITING && new_stage === WerBinIch.STAGES.GAME) {
             if ( this.all_roles_assigned() ) {
-                this.stage  = this.STAGES.GAME;
+                this.stage  = WerBinIch.STAGES.GAME;
                 return true;
             }
         }
@@ -180,6 +176,12 @@ class WerBinIch {
     
 
 }
+
+WerBinIch.STAGES = {
+    INIT: 1,
+    WAITING: 2,
+    GAME: 3,
+  };
 
 
 var game = new WerBinIch();
@@ -204,14 +206,14 @@ io.on('connection', function (socket) {
         game.set_user_socket(currentUser, socket);
         
         socket.emit('successful login', currentUser.name, currentUser.master);
-        if (game.stage == game.STAGES.INIT) {
+        if (game.stage == WerBinIch.STAGES.INIT) {
             // pass
-        } else if ( game.stage == game.STAGES.WAITING ) {
+        } else if ( game.stage == WerBinIch.STAGES.WAITING ) {
             console.log("sending watiging info");
-            socket.emit("send gamestage", game.STAGES.WAITING);
+            socket.emit("send gamestage", WerBinIch.STAGES.WAITING);
             socket.emit('askwho', currentUser.target.name);
-        } else if ( game.stage = game.STAGES.GAME ) {
-            socket.emit("send gamestage", game.STAGES.GAME);
+        } else if ( game.stage = WerBinIch.STAGES.GAME ) {
+            socket.emit("send gamestage", WerBinIch.STAGES.GAME);
             socket.emit( 'showwhoiswho', game.get_roles(currentUser) );
         } 
     }
@@ -256,9 +258,9 @@ io.on('connection', function (socket) {
 
   socket.on('send everybodysin', function () {
         console.log("gotsend everybodysin");
-        if (currentUser && currentUser.master && game.stage == game.STAGES.INIT) {
+        if (currentUser && currentUser.master && game.stage == WerBinIch.STAGES.INIT) {
             console.log("try switch to waiting stage");
-            if ( game.set_stage(game.STAGES.WAITING) ) {
+            if ( game.set_stage(WerBinIch.STAGES.WAITING) ) {
                 
                 for ( u in game.users) {
                     var user = game.users[u];
@@ -267,7 +269,7 @@ io.on('connection', function (socket) {
                 }
                 
                 console.log("switching to waiting stage");
-                io.emit("send gamestage", game.STAGES.WAITING);
+                io.emit("send gamestage", WerBinIch.STAGES.WAITING);
             }
 
            
@@ -277,11 +279,11 @@ io.on('connection', function (socket) {
 
   socket.on('reset game', function () {
     if (currentUser && currentUser.master) {
-            game.stage = game.STAGES.INIT;
+            game.stage = WerBinIch.STAGES.INIT;
             
             io.emit("send reset");
             console.log("switching to init stage");
-            io.emit("send gamestage", game.STAGES.INIT);
+            io.emit("send gamestage", WerBinIch.STAGES.INIT);
 
             for(var s in io.sockets.sockets) {
     
@@ -299,19 +301,19 @@ io.on('connection', function (socket) {
 
   socket.on('send whoiswho', function(whoisit) {
     console.log(`send who request`);
-    if ( game.stage === game.STAGES.WAITING) {
+    if ( game.stage === WerBinIch.STAGES.WAITING) {
         current_user = game.users[socket.handshake.session.username]
         current_user.target.role = whoisit;
         socket.emit("gotit")
         console.log(`got name from ${current_user.name}`);
-        if ( game.set_stage(game.STAGES.GAME)){
+        if ( game.set_stage(WerBinIch.STAGES.GAME)){
            
             for ( u in game.users) {
                 var user = game.users[u]
                 game.get_user_socket(user).emit( 'showwhoiswho', game.get_roles(user) );
             }
             console.log("switching to game stage");
-            io.emit("send gamestage", game.STAGES.GAME);
+            io.emit("send gamestage", WerBinIch.STAGES.GAME);
         }
 
     }
