@@ -65,7 +65,7 @@ class WerBinIch {
     }
      
 
-     get_roles = function(user) {
+     get_roles(user) {
 
         var filtered = Object.fromEntries(Object.entries(this.users).filter(([k,v]) => user.name !== v.name));
     
