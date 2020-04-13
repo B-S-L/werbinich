@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wer bin ich?</title>
+  <style>
+ 
+    body {
+      font-family: sans-serif;
+    }
+    
+    
+    .userlist.page {
+      display: none;
+    }
+
+
+    .game.page {
+      display: none;
+    }
+
+    .messages.page{
+        margin-top: 10em;
+    }
+    
+  
+    
+    /* Format für Benutzernamen bei der Ausgabe einer Chat-Nachricht */
+    .username {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .whosiswho.page {
+      display: none;
+    }
+    .waiting.page {
+      display: none;
+    }
+
+
+    .gotit {
+        display: none;
+    }
+
+    .notification {
+        display: none;
+    }
+
+
+    .gamemaster {
+        display: none;
+    }
+    .welcomeheader{
+        display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+  <div class="init page">
+
+    <div class="loginform">
+    <h3 class="title">Dein Name</h3>
+    <input class="usernameInput" type="text" maxlength="14" />
+    <input type="submit" class="usernamebutton" value="send"/>
+    </div>
+
+    <h3 class="welcomeheader"></h3>
+
+    <div class="gamemaster">
+    <div class="everybodysIn">
+        <input type="submit" class="everybodysinbutton" value="everybody's in!"/>
+    </div>
+    </div>  
+
+  </div>
+
+
+
+
+  <div class="waiting page">
+    <h3 class="title">Wer ist  <span class="whoistarget"></span>?</h3>
+    <input class="whoiswhoInput" type="text" maxlength="14"/>
+    <input type="submit" class="whoiswhoButton" value="send"/>
+
+
+    <h2 class="notification gotit">Got it! Waiting for others...</h2>
+
+  </div>
+
+
+
+  <div class="game page">
+
+    <h3 class="title">Who is who:</h3>
+    <table class="userrolestable"></table> 
+
+  </div>
+
+
+
+
+
+    
+
+  <div class="messages page">
+    <h4>Logs</h4>
+    <ul class="messageslist"></ul>
+  </div>
+
+
+  <div class="gamemaster">
+    <input type="checkbox" class="resetgamecheckbox" value="0"/>
+    <input type="checkbox" class="resetgamecheckbox" value="0"/>
+        <input type="submit" class="resetgamebutton" value="reset game"/>
+ 
+    </div>  
+
+
+
+  <!-- Programmcode auf der Client-Seite -->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+
+
+
+</body>
+</html>
