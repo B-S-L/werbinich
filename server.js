@@ -73,7 +73,7 @@ class WerBinIch {
         
         var roles = {}
         
-        for (username in this.users){
+        for (var username in this.users){
             if (username != user.name){
                 roles[username] = this.users[username].role
             }
