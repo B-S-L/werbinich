@@ -1,0 +1,64 @@
+<html>
+
+<script>
+     function random_permuatation_no_loops(k) {
+
+                var array = new Array(k);
+                for(var idx = 0; idx < k; idx++)
+                {
+                    array[idx] = idx;
+                }
+
+                if (k === 1){
+                    return [0];
+                }
+
+                var currentIndex = k - 1 , temporaryValue, randomIndex;
+
+                // While there remain elements to shuffle...
+                
+                var i = 0;
+                while (0 < currentIndex  && i < 1000) {
+                    i = i+ 1;
+                    console.log(`${i} - ${currentIndex}`);
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * (1+currentIndex)); // <= currentIndex!
+
+                
+                if (array[randomIndex] == currentIndex) {
+                    continue;
+                }
+                
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+                currentIndex -= 1; 
+                }
+                console.log("swapping");
+
+                if (array[0] === 0){
+                        var rand_swap = Math.floor(Math.random() * (k-1)) + 1
+                        array[0] = array[rand_swap];
+                        array[rand_swap] = 0;
+                }
+
+                return array;
+          }
+
+     function check(a){
+            for( var i in a){
+                if (a[i] == i) return false;
+            }
+            return true;
+     }
+
+    var f  = random_permuatation_no_loops(4);
+
+</script>
+<body>
+
+
+
+</body>
+
+<html>

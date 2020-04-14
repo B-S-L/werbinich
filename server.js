@@ -97,24 +97,27 @@ class WerBinIch {
             if (k === 1){
                 return [0];
             }
-        
+
             var currentIndex = k - 1 , temporaryValue, randomIndex;
-          
+
             // While there remain elements to shuffle...
-            while (0 < currentIndex) {
-          
-              // Pick a remaining element...
-              randomIndex = Math.floor(Math.random() * currentIndex); // < currentIndex!
-        
-             
-              if (array[randomIndex] === currentIndex) {
-                  continue;
-              }
-              
-              currentIndex -= 1; 
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
+            
+            var i = 0;
+            while (0 < currentIndex  && i < 100000) {
+                i = i+ 1;
+                
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * (1+currentIndex)); // <= currentIndex!
+
+            
+            if (array[randomIndex] == currentIndex) {
+                continue;
+            }
+            
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+            currentIndex -= 1; 
             }
 
             if (array[0] === 0){
@@ -122,9 +125,9 @@ class WerBinIch {
                     array[0] = array[rand_swap];
                     array[rand_swap] = 0;
             }
-        
+
             return array;
-          }
+        }
 
 
         var usernames = Object.keys(this.users);
