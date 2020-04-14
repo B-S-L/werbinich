@@ -70,13 +70,15 @@ class WerBinIch {
 
      get_roles(user) {
 
-        var filtered = Object.fromEntries(Object.entries(this.users).filter(([k,v]) => user.name !== v.name));
-    
+        
         var roles = {}
-    
-        Object.keys(filtered).forEach(function(username) {
-            roles[username] = filtered[username].role
-        });
+        
+        for (username in this.users){
+            if (username != user.name){
+                roles[username] = this.users[username].role
+            }
+        }
+
 
         return roles;
     
